@@ -7,6 +7,7 @@ from flask_login import login_required
 from app.models import User
 from flask import request
 from werkzeug.urls import url_parse
+from app.create_db import db, create_users
 
 @app.route('/')
 @app.route('/index')
@@ -23,7 +24,9 @@ def index():
             'body': 'Hellooo'
         }
     ]
-    return render_template("index.html", title='Home Page', posts=posts)
+    users = db.session.query(User).all()
+    return render_template('testrun.html', users=users)
+    #return render_template("index.html", title='Home Page', posts=posts)
 
 
 @app.route('/login', methods=['GET', 'POST'])
