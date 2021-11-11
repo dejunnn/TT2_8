@@ -1,8 +1,8 @@
-from app import db
-from app import login
+from app import db, login
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 @login.user_loader
 def load_user(id):
@@ -11,7 +11,7 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True)
-    password_hash = db.Column(db.String(64), unique=True)
+    password_hash = db.Column(db.String(64))
     name = db.Column(db.String(64))
     appointment = db.Column(db.String(64))
 
