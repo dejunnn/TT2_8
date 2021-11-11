@@ -8,6 +8,21 @@ from app.models import User
 from flask import request
 from werkzeug.urls import url_parse
 from app.create_db import db, create_users
+from flask_restful import reqparse, fields
+
+
+user_put_args = reqparse.RequestParser()
+user_put_args.add_argument("username", type=str, help="username of the user is required", required=True)
+user_put_args.add_argument("password", type=str, help="password of the user is required", required=True)
+user_put_args.add_argument("name", type=str, help="name of the user is required", required=True)
+user_put_args.add_argument("appointment", type=str, help="appointment of the user is required", required=True)
+
+resource_fields = { #used to indicate the json format of return data
+    "username" : fields.Integer,
+    "password" : fields.String,
+    "name" : fields.Integer,
+    "appointment" : fields.Integer
+}
 
 @app.route('/')
 @app.route('/index')

@@ -1,3 +1,4 @@
+from flask_restful import Resource
 from app import db
 from app import login
 from datetime import datetime
@@ -8,10 +9,13 @@ from flask_login import UserMixin
 def load_user(id):
     return User.query.get(int(id))
 
-class User(UserMixin, db.Model):
+# class UserModel(Resource)
+
+
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
-    password= db.Column(db.String(64))
+    username = db.Column(db.String(64))#, unique=True)
+    password= db.Column(db.String(64), nullable = False)
     #password_hash = db.Column(db.String(64), unique=True)
     name = db.Column(db.String(64))
     appointment = db.Column(db.String(64))
@@ -57,4 +61,7 @@ class Expense(db.Model):
     def __repr__(self):
         return '<Expense {}>'.format(self.name)
 
-db.create_all()
+i = 1
+if i ==1:
+    db.create_all()
+    i+=1
