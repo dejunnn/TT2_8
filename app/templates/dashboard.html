@@ -28,26 +28,71 @@
     <head>
         <meta charset ="UTF-8"/>
         <meta name= "viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel = "stylesheet" href = "styles.css">
         <title>Document</title>
     </head>
 </html>
-      <h1>Projects Dashboard</h1>
+      <h3>Projects Table</h3>
       <body>
-          <table>
-              <tr>
-                  {% for header in headings %}
-                  <th>{{header}}</th>
+          <div>
+          <table class= "table">
+              <tr class = "table_header">
+                  {% for header in projects_headings %}
+                  <th class= "table_cell">{{header}}</th>
                   {% endfor %}
               </tr>
-                  {% for row in data %}
-                  <tr>
+                  {% for row in projects_data %}
+                  <tr class= "table_row">
                       {% for cell in row %}
-                      <td>{{cell}}</td>
+                      <td class= "table_cell">{{cell}}</td>
                       {% endfor %}
                   </tr>
                   {% endfor %}
           </table>
+        </div>
       </body>
+      <h3>Expenses Table</h3>
+      <body>
+          <div>
+          <table class= "table">
+              <tr class = "table_header">
+                  {% for header in expenses_headings %}
+                  <th class= "table_cell">{{header}}</th>
+                  {% endfor %}
+              </tr>
+                  {% for row in expenses_data %}
+                  <tr class= "table_row">
+                      {% for cell in row %}
+                      <td class= "table_cell">{{cell}}</td>
+                      {% endfor %}
+                  </tr>
+                  {% endfor %}
+          </table>
+        </div>
+      </body>
+    <style>
+        h3 {
+            color: blue;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 200%;
+        }
+        .table {
+            border-spacing: 0;
+            margin: 1rem;
+            background-color: #f5f5f5
+        }
+        .table_row {
+            background-color: #e5e5e5;
+        }          
+        .table_header {
+            text-align: left;
+        }
+
+        .table_cell {
+            padding: 8px;
+        }
+
+    </style>
 
 {% endblock %}
 
