@@ -1,11 +1,8 @@
-from flask import render_template, flash, redirect, url_for
-from app import app
-from app.forms import LoginForm
-from flask_login import current_user, login_user
-from flask_login import logout_user
-from flask_login import login_required
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import current_user, login_user, logout_user, login_required
+from app import app, db
+from app.forms import LoginForm, RegistrationForm
 from app.models import User
-from flask import request
 from werkzeug.urls import url_parse
 from app.create_db import db, create_users
 from flask_restful import reqparse, fields
@@ -65,3 +62,41 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+    
+# temporary hard coding of the data till importing from db
+projects_headings = ("ID", "User_ID", "Name", "Description", "Budget")
+projects_data = (
+    ("1", "4", "RTF", "Realtime Face Recognition", "120000"),
+    ("2", "5", "IOT", "Internet of Things", "2044000"),
+    ("3", "6", "VAR", "Video Action Review", "7034000"),
+)
+expenses_headings = ("ID", "Project_ID", "Category_ID", "Name", "Description", 
+                    "Amount", "Created_At", "Created_By", "Updated_At", "Updated_By")
+expenses_data = (
+                ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
+                 "Jacky", "2021-11-06T16:00:00.000Z", "Jacky"),
+                 ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
+                 "Jacky", "2021-11-06T16:00:00.000Z", "Jacky"),
+                 ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
+                 "Jacky", "2021-11-06T16:00:00.000Z", "Jacky")
+
+
+)
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html', projects_headings=projects_headings, projects_data=
+                            projects_data, expenses_headings = expenses_headings, expenses_data = expenses_data)
