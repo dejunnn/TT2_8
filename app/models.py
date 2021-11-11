@@ -2,7 +2,7 @@ from flask_restful import Resource
 from app import db
 from app import login
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
+#from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 @login.user_loader
@@ -12,7 +12,7 @@ def load_user(id):
 # class UserModel(Resource)
 
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64))#, unique=True)
     password= db.Column(db.String(64), nullable = False)
@@ -23,11 +23,11 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-    # def set_password(self, password):
-    #     self.password_hash = generate_password_hash(password)
+    def set_password(self, password):
+        self.password = password
 
-    # def check_password(self, password):
-    #     return check_password_hash(self.password_hash, password)
+    def check_password(self, password):
+        return (self.password == password)
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +61,6 @@ class Expense(db.Model):
     def __repr__(self):
         return '<Expense {}>'.format(self.name)
 
-i = 1
-if i ==1:
-    db.create_all()
-    i+=1
+
+
+db.create_all()
