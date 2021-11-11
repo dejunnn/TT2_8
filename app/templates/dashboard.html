@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!---<h1>Projects Dashboard</h1>
+    <table id="data" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>User_ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Budget</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.user_id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.description }}</td>
+              <td>{{ user.budget }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table> -->
+<html lang="en">
+    <head>
+        <meta charset ="UTF-8"/>
+        <meta name= "viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Document</title>
+    </head>
+</html>
+      <h1>Projects Dashboard</h1>
+      <body>
+          <table>
+              <tr>
+                  {% for header in headings %}
+                  <th>{{header}}</th>
+                  {% endfor %}
+              </tr>
+                  {% for row in data %}
+                  <tr>
+                      {% for cell in row %}
+                      <td>{{cell}}</td>
+                      {% endfor %}
+                  </tr>
+                  {% endfor %}
+          </table>
+      </body>
+
+{% endblock %}
+

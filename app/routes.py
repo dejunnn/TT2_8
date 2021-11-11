@@ -47,3 +47,13 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+headings = ("ID", "User_ID", "Name", "Description", "Budget")
+data = (
+    ("1", "4", "RTF", "Realtime Face Recognition", "120000"),
+    ("2", "5", "IOT", "Internet of Things", "2044000"),
+    ("3", "6", "VAR", "Video Action Review", "7034000"),
+)
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html', headings=headings, data=data)
