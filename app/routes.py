@@ -58,3 +58,27 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+    
+# temporary hard coding of the data till importing from db
+projects_headings = ("ID", "User_ID", "Name", "Description", "Budget")
+projects_data = (
+    ("1", "4", "RTF", "Realtime Face Recognition", "120000"),
+    ("2", "5", "IOT", "Internet of Things", "2044000"),
+    ("3", "6", "VAR", "Video Action Review", "7034000"),
+)
+expenses_headings = ("ID", "Project_ID", "Category_ID", "Name", "Description", 
+                    "Amount", "Created_At", "Created_By", "Updated_At", "Updated_By")
+expenses_data = (
+                ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
+                 "Jacky", "2021-11-06T16:00:00.000Z", "Jacky"),
+                 ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
+                 "Jacky", "2021-11-06T16:00:00.000Z", "Jacky"),
+                 ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
+                 "Jacky", "2021-11-06T16:00:00.000Z", "Jacky")
+
+
+)
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html', projects_headings=projects_headings, projects_data=
+                            projects_data, expenses_headings = expenses_headings, expenses_data = expenses_data)
