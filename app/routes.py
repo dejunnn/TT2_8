@@ -75,9 +75,9 @@ expenses_data = (
                  "Jacky", "2021-11-06T16:00:00.000Z", "Jacky"),
                  ("1", "2", "2", "RTF", "Realtime Face Recognition", "9000", "2021-11-04T16:00:00.000Z",
                  "Jacky", "2021-11-06T16:00:00.000Z", "Jacky")
-
-
 )
+
+
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html', projects_headings=projects_headings, projects_data=
